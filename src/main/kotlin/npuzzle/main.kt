@@ -10,32 +10,23 @@ fun main(args: Array<String>) {
 //    println(graph.contentToString())
 
 //    println(Move(graph, 0, Direction.North))
-//    val state = State(graph, mutableListOf())
-//    println(state.move(0, Direction.North).getMoves().last())
-
-
+    val state = State(graph, Move(graph, 0, Direction.None))
+    println(state.move(0, Direction.North).move)
 }
 
 enum class Direction {
     North,
     South,
     West,
-    East
+    East,
+    None
 }
 
 
-data class State<T>(private val graph: Array<T>, private val moves: List<Move<T>>) {
+class State<T>(private val graph: Array<T>, val move: Move<T>) {
     fun move(item: T, direction: Direction): State<T> {
         val move = Move(graph, item, direction)
-        val moves = this.moves.toMutableList()
-        moves.add(move)
-
-        return State(move.getResult(), moves)
-    }
-
-    fun getMoves(): List<Move<T>> {
-        // Protect from mutability by returning a copy
-        return moves.toMutableList()
+        return State(move.getResult(), move)
     }
 
     override fun equals(other: Any?): Boolean {
