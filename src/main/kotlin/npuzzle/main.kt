@@ -9,8 +9,11 @@ fun main(args: Array<String>) {
 //    graph.swap(2, 3)
 //    println(graph.contentToString())
 
-    Move(graph, 0, Direction.North)
-    println(graph.contentToString())
+//    println(Move(graph, 0, Direction.North))
+//    val state = State(graph, mutableListOf())
+//    println(state.move(0, Direction.North).getMoves().last())
+
+
 }
 
 enum class Direction {
@@ -20,19 +23,21 @@ enum class Direction {
     East
 }
 
-class Move<out T>(graph: Array<T>, val item: T, val direction: Direction) {
-    init {
-        val frontier = graph.getFrontier(item)
-        when (direction) {
-            Direction.North -> graph.swap(item, frontier.first({ e -> e.direction == Direction.North }).value)
-            Direction.South -> graph.swap(item, frontier.first({ e -> e.direction == Direction.South }).value)
-            Direction.West -> graph.swap(item, frontier.first({ e -> e.direction == Direction.West }).value)
-            Direction.East -> graph.swap(item, frontier.first({ e -> e.direction == Direction.East }).value)
-        }
-    }
-}
 
-data class State<T>(private val graph: Array<T>, val moves: List<Move<T>>) {
+data class State<T>(private val graph: Array<T>, private val moves: List<Move<T>>) {
+    fun move(item: T, direction: Direction): State<T> {
+        val move = Move(graph, item, direction)
+        val moves = this.moves.toMutableList()
+        moves.add(move)
+
+        return State(move.getResult(), moves)
+    }
+
+    fun getMoves(): List<Move<T>> {
+        // Protect from mutability by returning a copy
+        return moves.toMutableList()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -98,6 +103,29 @@ fun <T> Array<T>.getFrontier(item: T): List<FrontierItem<T>> {
     }
 
     return neighbors
+}
+
+class Move<T>(graph: Array<T>, item: T, private val direction: Direction) {
+    private val result = graph.copyOf()
+
+
+    init {
+        val frontier = graph.getFrontier(item)
+        when (direction) {
+            Direction.North -> result.swap(item, frontier.first({ e -> e.direction == Direction.North }).value)
+            Direction.South -> result.swap(item, frontier.first({ e -> e.direction == Direction.South }).value)
+            Direction.West -> result.swap(item, frontier.first({ e -> e.direction == Direction.West }).value)
+            Direction.East -> result.swap(item, frontier.first({ e -> e.direction == Direction.East }).value)
+        }
+    }
+
+    fun getResult(): Array<T> {
+        return result
+    }
+
+    override fun toString(): String {
+        return "Moved $direction, Result ${result.contentToString()}"
+    }
 }
 
 data class FrontierItem<out T>(val value: T, val direction: Direction) {
