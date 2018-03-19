@@ -1,8 +1,10 @@
 package npuzzle
 
+import npuzzle.abstractions.State
 import npuzzle.datastructures.Queue
+import npuzzle.datastructures.Stack
 
-fun <T : Number> bfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean): Queue<State<T>> {
+fun <T : Number> bfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean): Collection<State<T>> {
     val frontier = Queue(mutableListOf(initialState))
     val explored = HashSet<State<T>>()
 
@@ -24,18 +26,28 @@ fun <T : Number> bfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean): Q
         }
     }
 
-    return Queue(mutableListOf())
+    return mutableListOf()
 }
 
-private fun <T : Number> getSolutionPath(state: State<T>): Queue<State<T>> {
-    val path = Queue(mutableListOf<State<T>>())
-    var current: State<T>? = state
+fun <T : Number> dfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean): Collection<State<T>> {
+    val frontier = Stack(mutableListOf(initialState))
+    val explored = HashSet<State<T>>()
 
-    // Backtrack
-    while (current != null) {
-        path.enqueue(current)
-        current = current.parent
+    while (frontier.isNotEmpty()) {
+        val state = frontier.pop()!!
+        explored.add(state)
+
+        if (isAtGoal(state)) {
+            return getSolutionPath(state)
+        }
+
+        for (neighbor in state.getFrontier().reversed()) {
+            if (explored.contains(neighbor) || frontier.contains(neighbor)) {
+                continue
+            }
+            frontier.push(neighbor)
+        }
     }
 
-    return path.reverse()
+    return mutableListOf()
 }
