@@ -4,7 +4,20 @@ package npuzzle.datastructures
  * Created by gazollajunior on 05/04/16.
  * SOURCE: https://github.com/gazolla/Kotlin-Algorithm/blob/master/Queue/Queue.kt
  */
-class Queue<T>(list: MutableList<T>) : Iterable<T> {
+class Queue<T>(list: MutableList<T>) : Iterable<T>, Collection<T> {
+    /**
+     * Returns the size of the collection.
+     */
+    override val size: Int
+        get() = items.size
+
+    /**
+     * Checks if all elements in the specified collection are contained in this collection.
+     */
+    override fun containsAll(elements: Collection<T>): Boolean {
+        return items.containsAll(elements)
+    }
+
     /**
      * Returns an iterator over the elements of this object.
      */
@@ -14,7 +27,7 @@ class Queue<T>(list: MutableList<T>) : Iterable<T> {
 
     var items: MutableList<T> = list
 
-    fun isEmpty(): Boolean = this.items.isEmpty()
+    override fun isEmpty(): Boolean = this.items.isEmpty()
     fun isNotEmpty(): Boolean = !this.isEmpty()
 
     fun count(): Int = this.items.count()
@@ -33,8 +46,8 @@ class Queue<T>(list: MutableList<T>) : Iterable<T> {
         }
     }
 
-    fun contains(item: T): Boolean {
-        return this.items.contains(item)
+    override fun contains(element: T): Boolean {
+        return this.items.contains(element)
     }
 
     fun peek(): T? {
