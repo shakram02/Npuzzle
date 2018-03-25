@@ -3,7 +3,7 @@ package npuzzle.abstractions
 import npuzzle.getFrontier
 import npuzzle.graphHash
 
-class State<T : Number>(private val item: T, private val graph: Array<T>, val move: Move<T>, val parent: State<T>? = null) {
+class State<T : Number>(private val item: T, val graph: Array<T>, val move: Move<T>, val parent: State<T>? = null) {
     private fun move(direction: Direction): State<T> {
         val move = Move(graph, item, direction)
         return State(item, move.getResult(), move, this)

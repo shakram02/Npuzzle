@@ -4,6 +4,7 @@ import npuzzle.abstractions.Direction
 import npuzzle.abstractions.FrontierItem
 import npuzzle.abstractions.State
 import npuzzle.datastructures.Queue
+import kotlin.math.roundToInt
 
 
 fun <T : Number> getSolutionPath(state: State<T>): Collection<State<T>> {
@@ -60,4 +61,52 @@ fun <T> Array<T>.getFrontier(item: T): List<FrontierItem<T>> {
 
 fun <T> Array<T>.graphHash(): Int {
     return this.joinToString("").toInt()
+}
+
+fun <T> Array<T>.indexToPair(index: Int): Pair<Int, Int> {
+    val width = Math.sqrt(this.size.toDouble()).toInt()
+
+    val rowIndex = index / width
+    val colIndex = index % width
+
+    return Pair(rowIndex, colIndex)
+}
+
+fun <T : Number> Array<out T>.calculateCost(costFunction: (Pair<Int, Int>, Pair<Int, Int>) -> Int): Int {
+    var weight = 0
+
+    for ((index, item) in this.withIndex()) {
+
+        val (x, y) = this.indexToPair(index)
+        val (trueX, trueY) = this.indexToPair(item.toInt())
+
+        weight += costFunction(Pair(x, y), Pair(trueX, trueY))
+    }
+
+    return weight
+}
+
+fun manhattanDistance(p1: Pair<Int, Int>, p2: Pair<Int, Int>): Int {
+    val (x1, y1) = p1
+    val (x2, y2) = p2
+
+    return Math.abs(x1 - x2) + Math.abs(y1 - y2)
+}
+
+fun euclideanDistance(p1: Pair<Int, Int>, p2: Pair<Int, Int>): Int {
+    val (x1, y1) = p1
+    val (x2, y2) = p2
+
+    val wX = Math.pow((x1 - x2).toDouble(), 2.0)
+    val wY = Math.pow((y1 - y2).toDouble(), 2.0)
+
+    return Math.sqrt(wX + wY).roundToInt()
+}
+
+
+class StateComparator<T : Number>(private val costFunction: (Pair<Int, Int>, Pair<Int, Int>) -> Int) : Comparator<State<T>> {
+
+    override fun compare(first: State<T>?, second: State<T>?): Int {
+        return first!!.graph.calculateCost(costFunction).compareTo(second!!.graph.calculateCost(costFunction))
+    }
 }
