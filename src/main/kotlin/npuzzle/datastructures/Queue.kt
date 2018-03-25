@@ -73,12 +73,8 @@ class Queue<T>(list: MutableList<T>) : Iterable<T>, Collection<T> {
     }
 
 
-    fun reverse(): Queue<T> {
-        val queue = Queue(mutableListOf<T>())
-        val copy = items.toMutableList()
-        copy.reverse()
-        queue.addAll(copy)
-        return queue
+    fun reverse() {
+        items.reverse()
     }
 }
 
