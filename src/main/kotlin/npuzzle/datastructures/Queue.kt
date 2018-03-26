@@ -77,27 +77,3 @@ class Queue<T>(list: MutableList<T>) : Iterable<T>, Collection<T> {
         items.reverse()
     }
 }
-
-
-fun main(args: Array<String>) {
-
-    var initialValue = mutableListOf<Int>(10)
-    var queue = Queue<Int>(initialValue)
-    println(queue)
-    queue.enqueue(22)
-    println(queue)
-    queue.enqueue(55)
-    println(queue)
-    queue.enqueue(77)
-    println(queue)
-    queue.dequeue()
-    println(queue)
-    queue.dequeue()
-    println(queue)
-    queue.dequeue()
-    println(queue)
-
-    // Iterating over queue
-    for (item in queue) println("Item in queue : " + item)
-
-}
