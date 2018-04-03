@@ -1,9 +1,5 @@
 package npuzzle.abstractions
 
-enum class Direction {
-    North,
-    South,
-    West,
-    East,
-    None
+enum class Direction : AbstractDirection {
+    North, South, East, West, None
 }
