@@ -1,7 +1,10 @@
 @file:JvmName("Main")
 
-package npuzzle
+package aipack
 
+import aipack.abstractions.PuzzleArray
+import aipack.abstractions.PuzzleCostCalculator
+import aipack.abstractions.State
 import npuzzle.abstractions.*
 import java.util.*
 

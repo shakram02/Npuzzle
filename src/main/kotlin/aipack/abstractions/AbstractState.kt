@@ -1,4 +1,4 @@
-package npuzzle.abstractions
+package aipack.abstractions
 
 interface AbstractState<T> {
     val stateRepresentation: Succesorable<T>

@@ -1,4 +1,4 @@
-package npuzzle.abstractions
+package aipack.abstractions
 
 interface Succesorable<T> : Iterator<T> {
     fun getSuccessors(): HashMap<AbstractDirection, T>

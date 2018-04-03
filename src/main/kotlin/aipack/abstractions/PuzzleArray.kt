@@ -1,4 +1,4 @@
-package npuzzle.abstractions
+package aipack.abstractions
 
 import java.util.*
 

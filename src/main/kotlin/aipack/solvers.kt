@@ -1,9 +1,9 @@
-package npuzzle
+package aipack
 
-import npuzzle.abstractions.CostCalculator
-import npuzzle.abstractions.State
-import npuzzle.datastructures.Queue
-import npuzzle.datastructures.Stack
+import aipack.abstractions.CostCalculator
+import aipack.abstractions.State
+import aipack.datastructures.Queue
+import aipack.datastructures.Stack
 import java.util.*
 import kotlin.collections.HashSet
 

@@ -1,0 +1,3 @@
+package aipack.abstractions
+
+interface AbstractDirection
