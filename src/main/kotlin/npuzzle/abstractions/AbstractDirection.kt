@@ -1,0 +1,3 @@
+package npuzzle.abstractions
+
+interface AbstractDirection
