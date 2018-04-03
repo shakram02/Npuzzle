@@ -1,5 +1,6 @@
 package npuzzle
 
+import npuzzle.abstractions.CostCalculator
 import npuzzle.abstractions.State
 import npuzzle.datastructures.Queue
 import npuzzle.datastructures.Stack
@@ -24,7 +25,7 @@ fun <T : Number> bfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, ma
         }
 
         // Calculate all possible unexplored states from this one
-        for (neighbor in state.getFrontier()) {
+        for (neighbor in state.getSuccessors()) {
             if (explored.contains(neighbor) || frontier.contains(neighbor)) {
                 continue
             }
@@ -38,10 +39,7 @@ fun <T : Number> bfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, ma
 fun <T : Number> dfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, maxIterations: Int = 1000): Collection<State<T>> {
     val frontier = Stack(mutableListOf(initialState))
     val explored = HashSet<State<T>>()
-    val possibleTargets = Queue(initialState.move.getResult().toMutableList())
-    val visitedTargets = HashSet<T>()
     var iterCount = 0
-    visitedTargets.add(possibleTargets.dequeue()!!)
 
 
     while (frontier.isNotEmpty()) {
@@ -56,7 +54,7 @@ fun <T : Number> dfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, ma
             return getSolutionPath(state)
         }
 
-        for (neighbor in state.getFrontier()) {
+        for (neighbor in state.getSuccessors()) {
             if (explored.contains(neighbor) || frontier.contains(neighbor)) {
                 continue
             }
@@ -68,9 +66,9 @@ fun <T : Number> dfs(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, ma
     return mutableListOf()
 }
 
-fun <T : Number> aStar(initialState: State<T>, isAtGoal: (State<T>) -> Boolean,
-                       costFunction: (Pair<Int, Int>, Pair<Int, Int>) -> Int, maxIterations: Int = 1000): Collection<State<T>> {
-    val frontier: PriorityQueue<State<T>> = PriorityQueue(StateComparator(costFunction))
+fun <T : Number> aStar(initialState: State<T>, isAtGoal: (State<T>) -> Boolean, costCalculator: CostCalculator<T>,
+                       maxIterations: Int = 1000): Collection<State<T>> {
+    val frontier: PriorityQueue<State<T>> = PriorityQueue(StateComparator(costCalculator))
     frontier.add(initialState)
     val explored = HashSet<State<T>>()
     var iterCount = 0
@@ -87,7 +85,7 @@ fun <T : Number> aStar(initialState: State<T>, isAtGoal: (State<T>) -> Boolean,
             return getSolutionPath(state)
         }
 
-        for (neighbor in state.getFrontier()) {
+        for (neighbor in state.getSuccessors()) {
             if (explored.contains(neighbor) || frontier.contains(neighbor)) {
                 continue
             }
