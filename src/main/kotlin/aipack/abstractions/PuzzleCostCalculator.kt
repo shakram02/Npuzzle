@@ -1,4 +1,4 @@
-package npuzzle.abstractions
+package aipack.abstractions
 
 class PuzzleCostCalculator(private val costFunction: (Pair<Int, Int>, Pair<Int, Int>) -> Int) : CostCalculator<Int> {
     override fun calculateCost(succesorable: Succesorable<Int>): Int {

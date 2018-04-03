@@ -1,8 +1,8 @@
-package npuzzle
+package aipack
 
-import npuzzle.abstractions.CostCalculator
-import npuzzle.abstractions.State
-import npuzzle.datastructures.Queue
+import aipack.abstractions.CostCalculator
+import aipack.abstractions.State
+import aipack.datastructures.Queue
 import kotlin.math.roundToInt
 
 

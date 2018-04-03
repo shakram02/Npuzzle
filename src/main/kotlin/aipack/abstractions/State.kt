@@ -1,4 +1,4 @@
-package npuzzle.abstractions
+package aipack.abstractions
 
 class State<T : Number>(override val stateRepresentation: Succesorable<T>, override val parent: State<T>? = null) : AbstractState<T> {
 

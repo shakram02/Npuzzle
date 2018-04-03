@@ -1,4 +1,4 @@
-package npuzzle.datastructures
+package aipack.datastructures
 
 /**
  * Created by gazollajunior on 05/04/16.

@@ -1,7 +1,7 @@
-package npuzzle
+package aipack
 
-import npuzzle.abstractions.PuzzleArray
-import npuzzle.abstractions.PuzzleCostCalculator
+import aipack.abstractions.PuzzleArray
+import aipack.abstractions.PuzzleCostCalculator
 import org.junit.Assert.*
 import org.junit.Test
 
