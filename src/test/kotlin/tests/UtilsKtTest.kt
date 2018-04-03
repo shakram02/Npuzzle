@@ -1,7 +1,9 @@
-package aipack
+package tests
 
-import aipack.abstractions.PuzzleArray
-import aipack.abstractions.PuzzleCostCalculator
+
+import aipack.abstractions.*
+import aipack.euclideanDistance
+import aipack.manhattanDistance
 import org.junit.Assert.*
 import org.junit.Test
 

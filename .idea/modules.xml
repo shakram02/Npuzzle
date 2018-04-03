@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/puzzle_game.iml" filepath="$PROJECT_DIR$/.idea/modules/puzzle_game.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ai_pack.iml" filepath="$PROJECT_DIR$/.idea/modules/ai_pack.iml" group="puzzle_game" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ai_pack_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ai_pack_test.iml" group="puzzle_game" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/main.iml" filepath="$PROJECT_DIR$/.idea/modules/main.iml" group="puzzle_game" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/puzzle_game.iml" filepath="$PROJECT_DIR$/.idea/modules/puzzle_game.iml" />
     </modules>
   </component>
 </project>

@@ -1,12 +1,12 @@
 @file:JvmName("Main")
 
-package aipack
-
+import aipack.aStar
 import aipack.abstractions.PuzzleArray
 import aipack.abstractions.PuzzleCostCalculator
 import aipack.abstractions.State
-import npuzzle.abstractions.*
-import java.util.*
+import aipack.bfs
+import aipack.euclideanDistance
+import aipack.manhattanDistance
 
 fun main(args: Array<String>) {
     val graph = arrayOf(1, 2, 5, 3, 0, 4, 6, 7, 8)    // Easy case
